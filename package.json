@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "GOOGLE_APPLICATION_CREDENTIALS='./Google-api-key.json' node index.js"
   },
   "author": "David McGregor",
   "license": "ISC",
