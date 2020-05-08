@@ -2,21 +2,29 @@ require('dotenv').config();
 
 const Twitter = require('twitter-lite');
 
-const user = new Twitter({
-  consumer_key: process.env.API_KEY,
-  consumer_secret: process.env.API_SECRET_KEY,
-});
-
 (async function() {
+  const user = new Twitter({
+    consumer_key: process.env.API_KEY,
+    consumer_secret: process.env.API_SECRET_KEY,
+  });
+
   try {
-      const response = await user.getBearerToken();
-      console.log(`Got the following Bearer token from Twitter: ${response.access_token}`);
-      
+      let response = await user.getBearerToken();      
       const app = new Twitter({
           bearer_token: response.access_token,
       });
-  } catch(e) {
-      console.log("There was an error calling the Twitter API.");
-      console.dir(e);
+
+      response = await app.get(`/search/tweets`, {
+        q: "Donald Trump", 
+        lang: "en",        
+        count: 10,        
+    });
+
+    for (tweet of response.statuses) {
+      console.dir(tweet.text);
   }
+} catch(e) {
+  console.log("There was an error calling the Twitter API");
+  console.dir(e);
+}
 })();
