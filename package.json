@@ -9,6 +9,7 @@
   "author": "David McGregor",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "twitter-lite": "^0.11.0"
   }
 }
